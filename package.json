@@ -1,0 +1,40 @@
+{
+  "name": "wasm-disjoint-set",
+  "version": "1.0.0",
+  "description": "A WebAssembly implementation of disjoint sets for the union-find algorithm",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build:asm:untouched": "asc assembly/index.ts -b build/untouched.wasm -t build/untouched.wat --sourceMap --validate --debug",
+    "build:asm:optimized": "asc assembly/index.ts -b build/optimized.wasm --validate -Oz",
+    "build:asm": "npm run build:asm:untouched && npm run build:asm:optimized",
+    "build:tsc": "node toB64.js && node ./node_modules/typescript-bundle/tsc-bundle ./tsconfig.json",
+    "build": "npm run build:asm && npm run build:tsc",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gliese1337/wasm-disjoint-set.git"
+  },
+  "keywords": [
+    "wasm",
+    "webassembly",
+    "disjoint-set",
+    "union-find"
+  ],
+  "author": "Logan R. Kearsley",
+  "bugs": {
+    "url": "https://github.com/gliese1337/wasm-disjoint-set/issues"
+  },
+  "devDependencies": {
+    "assemblyscript": "github:AssemblyScript/assemblyscript",
+    "typescript": "^3.3.3333",
+    "typescript-bundle": "^1.0.12",
+    "@types/node": "^11.10.5",
+    "@types/webassembly-js-api": "0.0.2"
+  }
+}
